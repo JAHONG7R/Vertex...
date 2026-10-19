@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0d0a">
+<title>Vertex Habit Tracker</title>
+<style>
+:root{--bg:#0b0d0a;--panel:#141711;--panel2:#1b2016;--line:#2c3324;--text:#f2f5eb;--muted:#a2ab95;--lime:#d4f34a;--red:#ff7272;--radius:18px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#1b2411 0,#0b0d0a 55%);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;min-height:100vh}
+button,input,select,textarea{font:inherit}button{cursor:pointer;border:0}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--lime);outline-offset:2px}
+.app{max-width:1120px;margin:auto;padding:20px 16px 90px}.topbar{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:10px}.logo{width:42px;height:42px;border-radius:14px;background:var(--lime);color:#15190d;display:grid;place-items:center;font-weight:950;font-size:21px}.brand h1{font-size:19px;margin:0;letter-spacing:.3px}.brand p{font-size:12px;color:var(--muted);margin:3px 0 0}.date-pill{font-size:12px;color:var(--lime);border:1px solid var(--line);padding:9px 12px;border-radius:999px}
+.tabs{display:flex;gap:7px;padding:6px;background:#11140f;border:1px solid var(--line);border-radius:15px;margin-bottom:22px;overflow:auto}.tab{flex:1;white-space:nowrap;background:transparent;color:var(--muted);padding:11px 12px;border-radius:10px}.tab.active{background:var(--lime);color:#15190d;font-weight:800}
+.page{display:none}.page.active{display:block}.hero{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:20px}.eyebrow{font-size:11px;letter-spacing:2px;color:var(--lime);font-weight:800;text-transform:uppercase}.hero h2{font-size:clamp(25px,5vw,38px);line-height:1.08;margin:7px 0}.hero p{color:var(--muted);margin:0;font-size:14px}.btn{border-radius:12px;padding:12px 15px;background:var(--lime);color:#161a0c;font-weight:800}.btn.secondary{background:var(--panel2);color:var(--text);border:1px solid var(--line)}.btn.danger{background:#3a1d1d;color:#ffb1b1}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:20px}.stat,.card{background:linear-gradient(145deg,#171b13,#11140f);border:1px solid var(--line);border-radius:var(--radius);padding:17px}.stat .label{font-size:12px;color:var(--muted)}.stat .value{font-size:27px;font-weight:850;margin:8px 0 4px}.stat .note{font-size:11px;color:var(--lime)}.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:20px 0 12px}.section-head h3{margin:0;font-size:17px}.section-head span{font-size:12px;color:var(--muted)}.habit-list{display:grid;gap:10px}.habit{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);padding:14px;border-radius:15px}.check{flex:0 0 28px;width:28px;height:28px;border-radius:9px;border:1px solid #596447;background:#0e110b;color:#15190d;font-weight:900}.check.done{background:var(--lime);border-color:var(--lime)}.habit-main{min-width:0;flex:1}.habit-title{font-weight:750;overflow-wrap:anywhere}.habit-meta{font-size:12px;color:var(--muted);margin-top:4px}.habit-actions{display:flex;gap:6px}.small-btn{background:var(--panel2);color:var(--muted);border:1px solid var(--line);padding:7px 9px;border-radius:9px;font-size:12px}.empty{padding:30px 16px;text-align:center;color:var(--muted);border:1px dashed #414a32;border-radius:15px}.progress-wrap{height:8px;background:#303725;border-radius:999px;overflow:hidden;margin-top:12px}.progress{height:100%;width:0;background:var(--lime);border-radius:999px;transition:width .2s}.two-col{display:grid;grid-template-columns:1.15fr .85fr;gap:14px}.card h3{margin:0 0 12px;font-size:16px}.muted{color:var(--muted);font-size:13px}.week-bars{height:160px;display:flex;align-items:flex-end;justify-content:space-around;gap:10px;padding:12px 0 0}.daybar{flex:1;max-width:54px;text-align:center;height:100%;display:flex;flex-direction:column;justify-content:flex-end;gap:8px}.bar{width:100%;min-height:4px;border-radius:7px 7px 3px 3px;background:var(--lime);opacity:.85}.daybar small{font-size:11px;color:var(--muted)}.task-form,.habit-form{display:grid;gap:10px}.field{width:100%;background:#0d100b;border:1px solid var(--line);border-radius:11px;padding:12px;color:var(--text)}.task-row{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}.task-row:last-child{border-bottom:0}.task-row input[type=checkbox]{accent-color:var(--lime);width:18px;height:18px}.task-text{flex:1;overflow-wrap:anywhere}.task-text.done{text-decoration:line-through;color:var(--muted)}.pomodoro{text-align:center;padding:25px 10px}.timer{font-size:clamp(45px,12vw,72px);font-weight:900;letter-spacing:2px;margin:18px 0;color:var(--lime);font-variant-numeric:tabular-nums}.timer-controls{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}.timer-mode{display:flex;justify-content:center;gap:7px;flex-wrap:wrap}.timer-mode button{background:var(--panel2);border:1px solid var(--line);color:var(--muted);padding:8px 12px;border-radius:999px}.timer-mode button.active{background:var(--lime);color:#15190d;font-weight:800}.notice{font-size:12px;color:var(--muted);line-height:1.5}.toast{position:fixed;left:50%;bottom:22px;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:var(--lime);color:#14180b;padding:12px 17px;border-radius:12px;font-weight:800;box-shadow:0 8px 30px #0007;transition:.2s;z-index:10}.toast.show{opacity:1;transform:translate(-50%,0)}.footer{text-align:center;color:#69725e;font-size:11px;margin-top:26px}.hidden{display:none!important}
+@media(max-width:720px){.app{padding:14px 12px 85px}.stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.stat{padding:14px}.stat .value{font-size:24px}.hero{align-items:flex-start;flex-direction:column}.hero .btn{width:100%}.two-col{grid-template-columns:1fr}.date-pill{font-size:10px;padding:8px}.habit{gap:9px;padding:12px}.habit-actions{flex-direction:column}.small-btn{padding:6px 8px}.tabs{margin-bottom:17px}.tab{padding:10px 11px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="topbar">
+  <div class="brand"><div class="logo">V</div><div><h1>VERTEX</h1><p>HABIT TRACKER · ULTIMATE</p></div></div>
+  <div class="date-pill" id="todayLabel">BUGUN</div>
+</header>
+<nav class="tabs" aria-label="Asosiy bo‘limlar">
+  <button class="tab active" data-page="dashboard">Dashboard</button>
+  <button class="tab" data-page="planner">Planner</button>
+  <button class="tab" data-page="focus">Pomodoro</button>
+  <button class="tab" data-page="analytics">Analytics</button>
+</nav>
+
+<section class="page active" id="page-dashboard">
+  <div class="hero"><div><div class="eyebrow">KUNLIK NAZORAT</div><h2>Bugun o‘zingni<br>bir pog‘ona oshir.</h2><p>Har bir kichik qadam katta natijaga olib boradi.</p></div><button class="btn" id="addHabitBtn">＋ Odat qo‘shish</button></div>
+  <div class="stats">
+    <div class="stat"><div class="label">Bugungi natija</div><div class="value" id="todayRate">0%</div><div class="note">bajarilgan odatlar</div></div>
+    <div class="stat"><div class="label">Bugun bajarildi</div><div class="value" id="todayCount">0/0</div><div class="note">odatlar soni</div></div>
+    <div class="stat"><div class="label">Umumiy XP</div><div class="value" id="xpCount">0</div><div class="note">har bir check-in = 10 XP</div></div>
+    <div class="stat"><div class="label">Joriy streak</div><div class="value" id="streakCount">0 🔥</div><div class="note">ketma-ket faol kunlar</div></div>
+  </div>
+  <div class="card" style="margin-bottom:18px"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center"><div><h3 style="margin-bottom:5px">Bugungi progress</h3><div class="muted" id="progressText">Boshlash uchun odat qo‘sh.</div></div><strong id="progressPct">0%</strong></div><div class="progress-wrap"><div class="progress" id="progressBar"></div></div></div>
+  <div class="section-head"><h3>Bugungi odatlar</h3><span id="habitCountLabel">0 ta odat</span></div>
+  <div id="habitList" class="habit-list"></div>
+</section>
+
+<section class="page" id="page-planner">
+  <div class="hero"><div><div class="eyebrow">REJALASHTIRISH</div><h2>Bugungi rejang.</h2><p>Vazifalarni yoz, bajarganingni belgilab bor.</p></div></div>
+  <div class="two-col">
+    <div class="card"><h3>＋ Yangi vazifa</h3><form id="taskForm" class="task-form"><input class="field" id="taskInput" maxlength="120" placeholder="Masalan: 20 ta yangi so‘z o‘rganish" required><input class="field" id="taskDate" type="date" required><button class="btn" type="submit">Vazifa qo‘shish</button></form><p class="notice">Vazifalar shu brauzerda saqlanadi. Boshqa qurilmaga avtomatik ko‘chmaydi.</p></div>
+    <div class="card"><h3>Vazifalar ro‘yxati</h3><div id="taskList"></div></div>
+  </div>
+</section>
+
+<section class="page" id="page-focus">
+  <div class="hero"><div><div class="eyebrow">CHUQUR DIQQAT</div><h2>Bir ishga e’tibor ber.</h2><p>Chalg‘ituvchilarni kamaytir va vaqtni boshqar.</p></div></div>
+  <div class="card pomodoro">
+    <div class="timer-mode"><button class="active" data-minutes="25" data-mode="focus">Focus · 25 min</button><button data-minutes="5" data-mode="short">Short break · 5 min</button><button data-minutes="15" data-mode="long">Long break · 15 min</button></div>
+    <div class="timer" id="timerDisplay">25:00</div><div class="muted" id="timerStatus">Tayyor bo‘lsang, boshlashni bos.</div>
+    <div class="timer-controls" style="margin-top:20px"><button class="btn" id="timerStart">▶ Boshlash</button><button class="btn secondary" id="timerReset">↺ Qayta boshlash</button></div>
+  </div>
+  <p class="notice" style="margin-top:14px">Eslatma: sahifani yopib yuborsang, taymer davom etishi kafolatlanmaydi. Telefonning bildirishnomalari uchun alohida ruxsat yoki qo‘shimcha sozlama kerak bo‘lishi mumkin.</p>
+</section>
+
+<section class="page" id="page-analytics">
+  <div class="hero"><div><div class="eyebrow">RIVOJLANISH</div><h2>Natijalarni ko‘r.</h2><p>So‘nggi 7 kunlik odat bajarilishlari.</p></div><button class="btn secondary" id="exportBtn">⬇ Ma’lumotni eksport</button></div>
+  <div class="stats">
+    <div class="stat"><div class="label">Jami odatlar</div><div class="value" id="analyticsHabits">0</div><div class="note">faol odatlar</div></div>
+    <div class="stat"><div class="label">Oxirgi 7 kun</div><div class="value" id="weekRate">0%</div><div class="note">bajarilish ko‘rsatkichi</div></div>
+    <div class="stat"><div class="label">Bajarilganlar</div><div class="value" id="allDone">0</div><div class="note">jami check-in</div></div>
+    <div class="stat"><div class="label">Daraja</div><div class="value" id="levelCount">1</div><div class="note" id="levelNote">XP to‘pla</div></div>
+  </div>
+  <div class="card"><h3>Haftalik faollik</h3><div class="week-bars" id="weekBars"></div></div>
+  <div class="card" style="margin-top:14px"><h3>Ma’lumotlar va xavfsizlik</h3><p class="notice">Ma’lumotlar qurilmangdagi brauzer xotirasida (localStorage) saqlanadi. Brauzer ma’lumotlarini tozalash yoki qurilmani almashtirish ma’lumotlarni yo‘qotishi mumkin. Zaxira nusxa olish uchun eksport tugmasidan foydalan.</p><button class="btn danger" id="resetBtn">Barcha ma’lumotni o‘chirish</button></div>
+</section>
+
+<div class="footer">VERTEX · Small steps. Strong systems. · Ma’lumotlar ushbu brauzerda saqlanadi.</div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<dialog id="habitDialog" style="background:#141711;color:#f2f5eb;border:1px solid #2c3324;border-radius:18px;width:min(440px,calc(100% - 28px));padding:22px">
+  <form id="habitForm" class="habit-form">
+    <h3 id="dialogTitle" style="margin:0 0 6px">Yangi odat</h3>
+    <input type="hidden" id="habitId">
+    <label for="habitName" class="muted">Odat nomi</label><input class="field" id="habitName" maxlength="80" placeholder="Masalan: 20 daqiqa kitob o‘qish" required>
+    <label for="habitCategory" class="muted">Kategoriya</label><select class="field" id="habitCategory"><option>Discipline</option><option>Focus</option><option>Health</option><option>Mindset</option><option>Learning</option><option>Recovery</option><option>Other</option></select>
+    <label for="habitFrequency" class="muted">Haftalik maqsad</label><select class="field" id="habitFrequency"><option value="7">7 kun</option><option value="6">6 kun</option><option value="5" selected>5 kun</option><option value="3">3 kun</option><option value="2">2 kun</option><option value="1">1 kun</option></select>
+    <div style="display:flex;gap:9px;margin-top:8px"><button class="btn" type="submit" style="flex:1">Saqlash</button><button class="btn secondary" type="button" id="cancelDialog">Bekor qilish</button></div>
+  </form>
+</dialog>
+
+<script>
+(function(){
+'use strict';
+const STORE='vertex_habit_tracker_v1';
+const $=id=>document.getElementById(id);
+const pad=n=>String(n).padStart(2,'0');
+const localDate=(date=new Date())=>`${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
+const shiftDate=(date,amount)=>{const d=new Date(date+'T12:00:00');d.setDate(d.getDate()+amount);return localDate(d)};
+const uid=()=>`${Date.now().toString(36)}-${Math.random().toString(36).slice(2,8)}`;
+const safeText=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const defaultState=()=>({habits:[],tasks:[],checks:{},xp:0});
+let state=loadState();
+function loadState(){try{const raw=localStorage.getItem(STORE);if(raw){const parsed=JSON.parse(raw);if(parsed&&Array.isArray(parsed.habits)&&Array.isArray(parsed.tasks)&&parsed.checks&&typeof parsed.checks==='object')return {...defaultState(),...parsed}}}catch(e){}return defaultState()}
+function save(){try{localStorage.setItem(STORE,JSON.stringify(state));return true}catch(e){toast('Saqlash amalga oshmadi. Brauzer xotirasini tekshir.');return false}}
+let toastTimer;
+function toast(message){$('toast').textContent=message;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),2300)}
+function isDone(habitId,date=localDate()){return !!(state.checks[date]&&state.checks[date][habitId])}
+function countDone(date){return state.habits.filter(h=>isDone(h.id,date)).length}
+function datesLast7(){return Array.from({length:7},(_,i)=>shiftDate(localDate(),i-6))}
+function xpTotal(){return Object.values(state.checks).reduce((sum,day)=>sum+Object.values(day||{}).filter(Boolean).length*10,0)}
+function currentStreak(){let streak=0;let date=localDate();while(countDone(date)>0){streak++;date=shiftDate(date,-1);if(streak>5000)break}return streak}
+function render(){
+ const today=localDate(),done=countDone(today),total=state.habits.length,rate=total?Math.round(done/total*100):0;
+ $('todayLabel').textContent=new Date().toLocaleDateString('uz-UZ',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
+ $('todayRate').textContent=rate+'%';$('todayCount').textContent=`${done}/${total}`;$('xpCount').textContent=xpTotal();$('streakCount').textContent=currentStreak()+' 🔥';
+ $('progressText').textContent=total?`${done} ta odatdan ${done} tasi bajarildi.`:'Boshlash uchun odat qo‘sh.';$('progressPct').textContent=rate+'%';$('progressBar').style.width=rate+'%';$('habitCountLabel').textContent=`${total} ta odat`;
+ const list=$('habitList');
+ if(!total){list.innerHTML='<div class="empty"><strong>Hali odatlar yo‘q.</strong><p>Yaxshi odat qo‘shib, birinchi qadamingni tashla.</p><button class="btn" id="emptyAdd">＋ Odat qo‘shish</button></div>';const b=$('emptyAdd');if(b)b.onclick=openAdd; }
+ else list.innerHTML=state.habits.map(h=>`<div class="habit"><button class="check ${isDone(h.id)?'done':''}" data-check="${h.id}" aria-label="${isDone(h.id)?'Bajarilgan':'Bajarilmagan'}">${isDone(h.id)?'✓':''}</button><div class="habit-main"><div class="habit-title">${safeText(h.name)}</div><div class="habit-meta">${safeText(h.category)} · Haftasiga ${h.frequency} kun${isDone(h.id)?' · Bugun bajarildi':''}</div></div><div class="habit-actions"><button class="small-btn" data-edit="${h.id}">Tahrir</button><button class="small-btn" data-delete="${h.id}">O‘chir</button></div></div>`).join('');
+ list.querySelectorAll('[data-check]').forEach(b=>b.onclick=()=>toggleCheck(b.dataset.check));
+ list.querySelectorAll('[data-edit]').forEach(b=>b.onclick=()=>openEdit(b.dataset.edit));
+ list.querySelectorAll('[data-delete]').forEach(b=>b.onclick=()=>deleteHabit(b.dataset.delete));
+ renderTasks();renderAnalytics();
+}
+function toggleCheck(id){const date=localDate();state.checks[date] ||= {};if(state.checks[date][id]){delete state.checks[date][id];toast('Bajarilgan belgi olib tashlandi.')}else{state.checks[date][id]=true;toast('Zo‘r! +10 XP');}save();render()}
+function openAdd(){$('habitForm').reset();$('habitId').value='';$('dialogTitle').textContent='Yangi odat';$('habitFrequency').value='5';$('habitDialog').showModal()}
+function openEdit(id){const h=state.habits.find(x=>x.id===id);if(!h)return;$('habitId').value=h.id;$('habitName').value=h.name;$('habitCategory').value=h.category;$('habitFrequency').value=String(h.frequency);$('dialogTitle').textContent='Odatni tahrirlash';$('habitDialog').showModal()}
+function deleteHabit(id){const h=state.habits.find(x=>x.id===id);if(!h)return;if(!confirm(`"${h.name}" odatini o‘chirasanmi?`))return;state.habits=state.habits.filter(x=>x.id!==id);Object.keys(state.checks).forEach(d=>{if(state.checks[d])delete state.checks[d][id]});save();render();toast('Odat o‘chirildi.')}
+$('addHabitBtn').onclick=openAdd;$('cancelDialog').onclick=()=>$('habitDialog').close();
+$('habitForm').onsubmit=e=>{e.preventDefault();const id=$('habitId').value;const name=$('habitName').value.trim();if(!name)return;const habit={id:id||uid(),name,category:$('habitCategory').value,frequency:Number($('habitFrequency').value)};if(id){state.habits=state.habits.map(h=>h.id===id?habit:h);toast('Odat yangilandi.')}else{state.habits.push(habit);toast('Yangi odat qo‘shildi.')}save();$('habitDialog').close();render()};
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===b));document.querySelectorAll('.page').forEach(p=>p.classList.toggle('active',p.id==='page-'+b.dataset.page));});
+$('taskDate').value=localDate();
+$('taskForm').onsubmit=e=>{e.preventDefault();const title=$('taskInput').value.trim(),date=$('taskDate').value;if(!title||!date)return;state.tasks.push({id:uid(),title,date,done:false});save();$('taskInput').value='';renderTasks();toast('Vazifa qo‘shildi.')};
+function renderTasks(){const list=$('taskList');const tasks=[...state.tasks].sort((a,b)=>a.date.localeCompare(b.date));if(!tasks.length){list.innerHTML='<p class="muted">Hozircha vazifalar yo‘q.</p>';return}list.innerHTML=tasks.map(t=>`<div class="task-row"><input type="checkbox" data-task-check="${t.id}" ${t.done?'checked':''} aria-label="Vazifani bajarildi deb belgilash"><div class="task-text ${t.done?'done':''}">${safeText(t.title)}<div class="muted">${safeText(t.date)}</div></div><button class="small-btn" data-task-delete="${t.id}">O‘chir</button></div>`).join('');list.querySelectorAll('[data-task-check]').forEach(b=>b.onchange=()=>{const t=state.tasks.find(x=>x.id===b.dataset.taskCheck);if(t){t.done=b.checked;save();renderTasks()}});list.querySelectorAll('[data-task-delete]').forEach(b=>b.onclick=()=>{state.tasks=state.tasks.filter(t=>t.id!==b.dataset.taskDelete);save();renderTasks();toast('Vazifa o‘chirildi.')})}
+function renderAnalytics(){const days=datesLast7();const possible=state.habits.length*7;const done=days.reduce((n,d)=>n+countDone(d),0);$('analyticsHabits').textContent=state.habits.length;$('weekRate').textContent=(possible?Math.round(done/possible*100):0)+'%';$('allDone').textContent=Object.values(state.checks).reduce((n,d)=>n+Object.values(d||{}).filter(Boolean).length,0);const xp=xpTotal(),level=Math.floor(xp/100)+1;$('levelCount').textContent=level;$('levelNote').textContent=`Keyingi darajaga ${100-(xp%100)} XP`;
+ $('weekBars').innerHTML=days.map(d=>{const n=countDone(d),pct=state.habits.length?n/state.habits.length*100:0;const label=new Date(d+'T12:00:00').toLocaleDateString('uz-UZ',{weekday:'short'});return `<div class="daybar" title="${d}: ${n}/${state.habits.length}"><strong style="font-size:11px;color:var(--muted)">${n}</strong><div class="bar" style="height:${Math.max(4,pct)}%"></div><small>${safeText(label)}</small></div>`}).join('');
+}
+$('exportBtn').onclick=()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='vertex-backup-'+localDate()+'.json';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);toast('Zaxira fayli tayyorlandi.')};
+$('resetBtn').onclick=()=>{if(!confirm('Barcha odatlar, vazifalar va statistika o‘chirilsinmi? Avval eksport qilib zaxira olishing mumkin.'))return;state=defaultState();save();render();toast('Ma’lumotlar tozalandi.')};
+
+let duration=25*60,remaining=duration,interval=null,endAt=null,mode='focus';
+function showTimer(){const m=Math.floor(remaining/60),s=remaining%60;$('timerDisplay').textContent=`${pad(m)}:${pad(s)}`;$('timerStart').textContent=interval?'Ⅱ Pauza':'▶ Davom etish'}
+function selectMode(button){document.querySelectorAll('.timer-mode button').forEach(b=>b.classList.toggle('active',b===button));mode=button.dataset.mode;duration=Number(button.dataset.minutes)*60;remaining=duration;endAt=null;clearInterval(interval);interval=null;$('timerStatus').textContent=mode==='focus'?'Diqqat vaqti. Bir ishni tanla.':'Dam olish vaqti.';showTimer()}
+document.querySelectorAll('.timer-mode button').forEach(b=>b.onclick=()=>selectMode(b));
+function tick(){if(!endAt)return;remaining=Math.max(0,Math.ceil((endAt-Date.now())/1000));showTimer();if(remaining<=0){clearInterval(interval);interval=null;endAt=null;$('timerStatus').textContent='Vaqt tugadi! Qisqa tanaffus qil yoki yana boshlagin.';$('timerStart').textContent='▶ Qayta boshlash';try{if('vibrate'in navigator)navigator.vibrate(250)}catch(e){}}}
+$('timerStart').onclick=()=>{if(interval){clearInterval(interval);interval=null;endAt=null;$('timerStatus').textContent='Taymer pauzada.';showTimer();return}if(remaining<=0)remaining=duration;endAt=Date.now()+remaining*1000;interval=setInterval(tick,250);$('timerStatus').textContent='Taymer ishlayapti. Diqqatni saqla.';showTimer()};
+$('timerReset').onclick=()=>{clearInterval(interval);interval=null;endAt=null;remaining=duration;$('timerStatus').textContent='Tayyor bo‘lsang, boshlashni bos.';showTimer()};
+render();showTimer();
+})();
+</script>
+</body>
+</html>
